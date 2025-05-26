@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
 import gsap from 'gsap'
 import styles from '../styles/Home.module.css'
 
@@ -24,13 +25,17 @@ export default function Home() {
       </Head>
 
       <nav className={styles.nav}>
-        <div className={styles.logo}>KODAY</div>
+        <div className={styles.logoContainer}>
+          <img
+            src="/images/logo/LOGOKODAY.png"
+            alt="KODAY Logo"
+            className={styles.logoImage}
+          />
+        </div>
         <div className={styles.menu}>
-          <a href="/services">Services</a>
-          <a href="/work">Work</a>
-          <a href="/about">About</a>
-          <a href="/news">News</a>
-          <a href="/contact">Contact</a>
+          <a href="/proyectos">PROYECTOS</a>
+          <a href="/nosotros">NOSOTROS</a>
+          <a href="/contactanos">CONTÁCTANOS</a>
         </div>
       </nav>
 
