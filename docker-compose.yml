@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Servicio principal de la aplicación web
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    container_name: koday-app
+    networks:
+      - koday-network
+
+  # Servicio de desarrollo (opcional - para desarrollo local)
+  app-dev:
+    build: .
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+    profiles:
+      - dev
+    container_name: koday-app-dev
+    networks:
+      - koday-network
+
+  # Base de datos (ejemplo para futuras implementaciones)
+  # db:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     POSTGRES_DB: koday_db
+  #     POSTGRES_USER: koday_user
+  #     POSTGRES_PASSWORD: koday_password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+  #   container_name: koday-db
+  #   networks:
+  #     - koday-network
+
+  # Redis (ejemplo para caché - futuras implementaciones)
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+  #   container_name: koday-redis
+  #   networks:
+  #     - koday-network
+
+# Volúmenes para persistencia de datos
+volumes:
+  postgres_data:
+
+# Red personalizada para comunicación entre servicios
+networks:
+  koday-network:
+    driver: bridge 
